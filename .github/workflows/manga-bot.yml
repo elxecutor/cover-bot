@@ -1,0 +1,46 @@
+name: Manga Cover Bot
+
+on:
+  schedule:
+    # Run every 90 minutes (16 times per day)
+    - cron: '0,30 */3 * * *'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  post-manga-cover:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.13'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Create .env file
+      run: |
+        echo "X_API_KEY=${{ secrets.X_API_KEY }}" >> .env
+        echo "X_API_SECRET=${{ secrets.X_API_SECRET }}" >> .env
+        echo "X_ACCESS_TOKEN=${{ secrets.X_ACCESS_TOKEN }}" >> .env
+        echo "X_ACCESS_TOKEN_SECRET=${{ secrets.X_ACCESS_TOKEN_SECRET }}" >> .env
+        echo "X_BEARER_TOKEN=${{ secrets.X_BEARER_TOKEN }}" >> .env
+        
+    - name: Run manga cover bot
+      run: python main.py
+      
+    - name: Commit and push rate limit state
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add rate_limit_state.json
+        git diff --staged --quiet || git commit -m "Update rate limit state [skip ci]"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
