@@ -1,17 +1,8 @@
 # Manga Cover Bot 🤖📚
 
+[![Manga Cover Bot](https://github.com/elxecutor/cover-bot/actions/workflows/manga-bot.yml/badge.svg)](https://github.com/elxecutor/cover-bot/actions/workflows/manga-bot.yml)
 
-An automated bot that fetches random manga covers ```
-├── main.py                 # Main entry point
-├── requirements.txt        # Python dependencies
-├── rate_limit_state.json  # Rate limiting state (managed by GitHub Actions artifacts)
-├── core/
-│   ├── manga_cover.py     # MangaDex API integration
-│   ├── x_poster.py        # X (Twitter) posting
-│   └── rate_guard.py      # Rate limiting logic
-└── .github/workflows/
-    └── manga-bot.yml      # GitHub Actions workflow
-```ex and posts them to X (Twitter) with built-in rate limiting.
+An automated bot that fetches random manga covers from MangaDex and posts them to X (Twitter) with built-in rate limiting.
 
 ## Features
 
