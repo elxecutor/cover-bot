@@ -2,13 +2,12 @@
 
 [![Manga Cover Bot](https://github.com/elxecutor/cover-bot/actions/workflows/manga-bot.yml/badge.svg)](https://github.com/elxecutor/cover-bot/actions/workflows/manga-bot.yml)
 
-An automated bot that fetches random manga covers from MangaDex and posts them to X (Twitter) with built-in rate limiting.
+An automated bot that fetches random manga covers from MangaDex and posts them to X (Twitter).
 
 ## Features
 
-- 🎲 Fetches random manga covers from top-rated English manga on MangaDx
+- 🎲 Fetches random manga covers from top-rated English manga on MangaDex
 - 🐦 Posts to X (Twitter) with manga title
-- ⏱️ Built-in rate limiting (configurable intervals)
 - 🔄 Automated GitHub Actions workflow
 - 🛡️ Error handling and cleanup
 
@@ -58,30 +57,21 @@ python main.py
 ```
 
 ### Automated Schedule
-The GitHub Actions workflow runs every 90 minutes automatically using GitHub Artifacts to persist rate limiting state between runs. You can also trigger it manually from the Actions tab.
+The GitHub Actions workflow runs every 90 minutes automatically. You can also trigger it manually from the Actions tab.
 
 ## Configuration
 
-### Rate Limiting
-Edit `core/rate_guard.py` to modify the posting interval:
-
-```python
-RATE_LIMIT_HOURS = 6  # Change this value
-```
-
 ### Manga Selection
-The bot fetches from the top 608 rated English manga on MangaDx. Modify `core/manga_cover.py` to change this behavior.
+The bot fetches from the top 608 rated English manga on MangaDex. Modify `core/manga_cover.py` to change this behavior.
 
 ## File Structure
 
 ```
 ├── main.py                 # Main entry point
 ├── requirements.txt        # Python dependencies
-├── rate_limit_state.json  # Rate limiting state (auto-generated)
 ├── core/
-│   ├── manga_cover.py     # MangaDx API integration
-│   ├── x_poster.py        # X (Twitter) posting
-│   └── rate_guard.py      # Rate limiting logic
+│   ├── manga_cover.py     # MangaDex API integration
+│   └── x_poster.py        # X (Twitter) posting
 └── .github/workflows/
     └── manga-bot.yml      # GitHub Actions workflow
 ```

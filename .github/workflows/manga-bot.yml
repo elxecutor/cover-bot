@@ -32,19 +32,5 @@ jobs:
         echo "X_ACCESS_TOKEN_SECRET=${{ secrets.X_ACCESS_TOKEN_SECRET }}" >> .env
         echo "X_BEARER_TOKEN=${{ secrets.X_BEARER_TOKEN }}" >> .env
         
-    - name: Download previous rate limit state
-      uses: actions/download-artifact@v4
-      with:
-        name: rate-limit-state
-        path: .
-      continue-on-error: true
-      
     - name: Run manga cover bot
       run: python main.py
-      
-    - name: Upload rate limit state
-      uses: actions/upload-artifact@v4
-      with:
-        name: rate-limit-state
-        path: rate_limit_state.json
-        retention-days: 30
